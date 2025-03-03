@@ -14,7 +14,7 @@ export const createOrder = async (req, res) => {
     }
 
     // Vérifier la disponibilité des produits
-    const productService = process.env.VITE_PRODUCT_SERVICE_URL || 'http://localhost:3000';
+    const productService = process.env.VITE_PRODUCT_SERVICE_URL || 'http://product-service:3000';
     let totalAmount = 0;
     const orderProducts = [];
 
@@ -150,7 +150,7 @@ export const cancelOrder = async (req, res) => {
     order.status = 'cancelled';
     await order.save();
 
-    const productService = process.env.VITE_PRODUCT_SERVICE_URL || 'http://localhost:3000';
+    const productService = process.env.VITE_PRODUCT_SERVICE_URL || 'http://product-service:3000';
 
     // Utiliser Promise.all pour gérer toutes les mises à jour en parallèle
     await Promise.all(order.products.map(async (item) => {

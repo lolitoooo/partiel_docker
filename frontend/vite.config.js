@@ -12,17 +12,15 @@ export default defineConfig({
     cors: true,
     proxy: {
       '/api/products': {
-        target: process.env.VITE_PRODUCT_SERVICE_URL || 'http://localhost:3000',
+        target: process.env.VITE_PRODUCT_SERVICE_URL || 'http://product-service:3000',
         changeOrigin: true,
-        
       },
       '/api/cart': {
-        target: process.env.VITE_PRODUCT_SERVICE_URL || 'http://localhost:3000',
+        target: process.env.VITE_PRODUCT_SERVICE_URL || 'http://product-service:3000',
         changeOrigin: true,
-        
       },
       '/api/auth': {
-        target: process.env.VITE_AUTH_SERVICE_URL || 'http://localhost:3001',
+        target: process.env.VITE_AUTH_SERVICE_URL || 'http://auth-service:3001',
         changeOrigin: true,
         timeout: 60000, // 60 secondes
         configure: (proxy) => {
@@ -39,7 +37,7 @@ export default defineConfig({
         },
       },
       '/api/orders': {
-        target: process.env.VITE_ORDER_SERVICE_URL || 'http://localhost:3002',
+        target: process.env.VITE_ORDER_SERVICE_URL || 'http://order-service:3002',
         changeOrigin: true,
         
       }

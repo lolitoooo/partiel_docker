@@ -1,4 +1,4 @@
-# Utiliser l'image officielle de Node.js
+# Étape de build
 FROM node:18 AS build
 
 # Créer et changer le répertoire de travail
@@ -16,23 +16,17 @@ COPY . .
 # Construire le frontend
 RUN npm run build
 
-# Étape finale
-FROM node:18
+# Étape de production
+FROM nginx:alpine
 
-# Créer et changer le répertoire de travail
-WORKDIR /usr/src/app
+# Copier les fichiers construits depuis l'étape de build
+COPY --from=build /usr/src/app/dist /usr/share/nginx/html
 
-# Copier uniquement le répertoire dist de l'étape de build
-COPY --from=build /usr/src/app/dist ./dist
+# Copier le fichier de configuration Nginx
+COPY nginx.conf /etc/nginx/nginx.conf
 
-# Copier les fichiers de dépendances pour la production
-COPY package*.json ./
+# Exposer le port 80
+EXPOSE 80
 
-# Installer les dépendances de production
-RUN npm install --production
-
-# Copier le fichier server.cjs pour démarrer le serveur
-COPY server.cjs ./
-
-# Lancer le service web au démarrage du conteneur
-CMD [ "node", "server.cjs" ]
+# Lancer Nginx
+CMD ["nginx", "-g", "daemon off;"]
