@@ -1,6 +1,6 @@
 services:
   frontend:
-    image: myapp/frontend:latest
+    image: localhost:5123/e-commerce-vue-main-frontend
     ports:
       - "8081:80"
     networks:
@@ -12,7 +12,7 @@ services:
       - VITE_ORDER_SERVICE_URL=http://order-service:3002
 
   product-service:
-    image: myapp/product-service:latest
+    image: localhost:5123/e-commerce-vue-main-product-service
     ports:
       - "3000:3000"
     networks:
@@ -21,7 +21,7 @@ services:
       - MONGODB_URI=mongodb://mongo:27017/ecommerce
 
   auth-service:
-    image: myapp/auth-service:latest
+    image: localhost:5123/e-commerce-vue-main-auth-service
     ports:
       - "3001:3001"
     networks:
@@ -30,7 +30,7 @@ services:
       - MONGODB_URI=mongodb://mongo:27017/ecommerce
 
   order-service:
-    image: myapp/order-service:latest
+    image: localhost:5123/e-commerce-vue-main-order-service
     ports:
       - "3002:3002"
     networks:
