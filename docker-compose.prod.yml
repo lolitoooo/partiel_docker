@@ -39,7 +39,7 @@ services:
       - MONGODB_URI=mongodb://mongo:27017/ecommerce
 
   mongo:
-    image: mongo:latest
+    image: mongo:4.4.24-focal
     ports:
       - "27018:27017"
     networks:
